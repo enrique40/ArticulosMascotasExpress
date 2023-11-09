@@ -1,0 +1,48 @@
+<header class="dashboard">
+  <div class="container">
+    <div class="row flex-column">
+      <div class="col-md-1">
+        <img src="./../../../public/img/panda.jpg" alt="sd"/>
+      </div>
+      <div class="col-md-1">
+        <p>Artiuclos para Mascotas</p>
+      </div>
+      <div class="col-md-2 float-right">
+        <a href="/admin" class="<%= activeNavItem === 'iniciar seccion' ? 'active' : '' %> float-right">Iniciar sesión</a>
+        <img src="./src/public/img/admin/miniun.jpg" alt="s" class="float-right"/>
+      </div>
+    </div>
+  </div>
+</header>
+<body>
+  <div class="container">
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="./../../../public/img/admin/backg.jpg" class="d-block w-100" alt="Imagen 1">
+        </div>
+        <div class="carousel-item">
+          <img src="./../../../public/img/admin/backg.jpg" class="d-block w-100" alt="Imagen 2">
+        </div>
+        <div class="carousel-item">
+          <img src="./../../../public/img/admin/backg.jpg" class="d-block w-100" alt="Imagen 3">
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+<script>
+  const carousel = document.querySelector("#carouselExampleSlidesOnly");
+
+  function changeImage() {
+    const activeSlide = carousel.querySelector(".active");
+    const nextSlide = activeSlide === carousel.querySelector(".carousel-item:last-child") ? carousel.querySelector(".carousel-item:first-child") : activeSlide.nextElementSibling;
+
+    activeSlide.classList.remove("active");
+    nextSlide.classList.add("active");
+  }
+
+  setInterval(changeImage, 5000);
+</script>

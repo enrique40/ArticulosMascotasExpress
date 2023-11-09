@@ -1,0 +1,142 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0; }
+
+body {
+  font-family: "Lato", "Crete Round", sans-serif; }
+  body {
+    min-height: 100vh;
+    min-height: 100dvh; }
+  body .footer {
+    -ms-flex-item-align: end;
+        align-self: flex-end;
+    width: 100%; }
+  body .header {
+    min-height: 60px;
+    position: fixed;
+    width: 100%; }
+  body .main {
+    min-height: 100vh;
+    min-height: 100dvh;
+    width: 100%; }
+
+a {
+  text-decoration: none; }
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none; }
+
+html {
+  scroll-behavior: smooth; }
+
+.ico {
+  color: #fff;
+  font-size: 18px; }
+
+input {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  outline: none; }
+
+/* label,
+p,
+a {
+  color: #fff;
+} */
+li {
+  list-style: none; }
+
+::-webkit-input-placeholder {
+  color: #fff; }
+
+:-ms-input-placeholder {
+  color: #fff; }
+
+::-ms-input-placeholder {
+  color: #fff; }
+
+::placeholder {
+  color: #fff; }
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px; }
+
+::-webkit-scrollbar-thumb {
+  background: #0d6efd; }
+
+::-webkit-scrollbar-track {
+  background: #300081; }
+
+/* &{
+  scrollbar-face-color: $foreground-color;
+  scrollbar-track-color: $background-color;
+} */
+.textoColor {
+  color: #0d6efd; }
+
+.icon-instagram {
+  border-radius: 5px;
+  color: #c15a3a; }
+
+.icon-linkedin {
+  color: #0077b5; }
+
+.icon-github {
+  color: #ee216b; }
+
+.icon-facebook {
+  color: #3b5998; }
+
+.icon-whatsapp {
+  color: #7ad06d; }
+
+.icon-envelop {
+  color: #ec5c52; }
+
+.cv {
+  color: #ff2929; }
+
+@-webkit-keyframes show {
+  from {
+    opacity: 0;
+    scale: 25%; }
+  to {
+    opacity: 1;
+    scale: 100%; } }
+
+@keyframes show {
+  from {
+    opacity: 0;
+    scale: 25%; }
+  to {
+    opacity: 1;
+    scale: 100%; } }
+@-webkit-keyframes gradient {
+  0% {
+    background-position: 0% 50%; }
+  50% {
+    background-position: 100% 50%; }
+  100% {
+    background-position: 0% 50%; } }
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%; }
+  50% {
+    background-position: 100% 50%; }
+  100% {
+    background-position: 0% 50%; } }
+.btn-simple {
+  border-radius: 4px;
+  border: 1px solid #ffffff80;
+  background-color: rgba(63, 0, 136, 0.3);
+  height: 30.39px;
+  width: 90px; }
+
+/*# sourceMappingURL=style.css.map */

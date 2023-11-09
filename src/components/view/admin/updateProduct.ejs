@@ -1,0 +1,167 @@
+<%- include("./nav.ejs", {activeNavItem: "inicio"}) %>
+
+<div class="newProduct update">
+  <div class="container">
+    <form action="/db/new-producto" method="post" enctype="multipart/form-data">
+      <div class="containerImg">
+        <div class="imgPrimaria">
+          <div class="input" onchange="cargarImagen(event)">
+            <label for="img1">
+              <input type="file" name="img1" id="img1" />
+              <img src="<%= producto.imgs[0].name %>" alt="" id="img1Preview"
+            /></label>
+          </div>
+        </div>
+        <div class="imgSecundarias">
+          <div class="input" onchange="cargarImagen(event)">
+            <label for="img2">
+              <input type="file" name="img2" id="img2" />
+              <img src="<%= producto.imgs[1].name %>" alt="" id="img2Preview" />
+            </label>
+          </div>
+          <div class="input" onchange="cargarImagen(event)">
+            <label for="img3"
+              ><input type="file" name="img3" id="img3" />
+              <img src="<%= producto.imgs[2].name %>" alt="" id="img3Preview"
+            /></label>
+          </div>
+          <div class="input" onchange="cargarImagen(event)">
+            <label for="img4">
+              <input type="file" name="img4" id="img4" />
+              <img src="<%= producto.imgs[3].name %>" alt="" id="img4Preview"
+            /></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="containerInfo">
+        <label for="nombre">Nombre:</label>
+        <input
+          type="text"
+          name="nombre"
+          id="nombre"
+          required
+          value="<%= producto.nombre %>"
+        />
+
+        <label for="descripcion">Descripción:</label>
+        <textarea name="descripcion" id="descripcion" rows="3" value="">
+            <%= producto.descripcion %>
+        </textarea>
+
+        <label for="codigo">Código:</label>
+        <input
+          type="text"
+          name="codigo"
+          id="codigo"
+          required
+          value="<%= producto.codigo %>"
+        />
+
+        <label for="precio">Precio:</label>
+        <input type="number" name="precio" id="precio" required value="<%=
+        producto.precio %>"/ />
+
+        <label for="categoria">Categoría:</label>
+        <select name="categoria" id="categoria">
+          <option value="<%= producto.categoria %>" selected>
+            <%= producto.categoria %>
+          </option>
+          <% categorias.forEach(function(categoria) { %>
+          <option value="<%= categoria.dataValues.id %>">
+            <%= categoria.dataValues.nombre %>
+          </option>
+          <% }); %>
+        </select>
+
+        <input type="submit" value="Actualizar Producto" />
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  /* Enviar el formulario */
+  document.querySelector("form").addEventListener("submit", (e) => {
+    e.preventDefault(); // Evita la recarga de la página
+
+    let formData = new FormData();
+
+    // Agrega cada archivo al FormData
+    formData.append("img1", $("img1").files[0]);
+    formData.append("img2", $("img2").files[0]);
+    formData.append("img3", $("img3").files[0]);
+    formData.append("img4", $("img4").files[0]);
+
+    formData.append("nombre", $("nombre").value);
+    formData.append("descripcion", $("descripcion").value);
+    formData.append("codigo", $("codigo").value);
+    formData.append("precio", $("precio").value);
+    formData.append("categoria", $("categoria").value);
+
+    const imgs = [];
+
+    // Supongamos que tienes elementos de formulario con los IDs "img1", "img2", "img3", "img4".
+    const formElements = ["img1", "img2", "img3", "img4"];
+
+    for (const elementId of formElements) {
+      const fileInput = document.getElementById(elementId);
+      const destacada = $("img1") === fileInput;
+
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        // Verificar si el nombre del archivo no está vacío.
+        const fileName = fileInput.files[0].name;
+        if (fileName.trim() !== "") {
+          imgs.push({ name: fileName, destacada }); // Añadir la imagen al array.
+        }
+      } else {
+        imgs.push({ name: "fileName", destacada }); // Añadir la imagen al array.
+      }
+    }
+
+    // Ahora imgs contiene solo las imágenes válidas.
+    console.log(imgs);
+
+    formData.append("imgs", JSON.stringify(imgs));
+
+    // Obtener los segmentos del path
+    const urlSegments = window.location.pathname.split("/");
+
+    // Obtener un valor específico (por ejemplo, el segundo segmento)
+    const productoId = urlSegments[3];
+
+    fetch(`/db/update-producto/${productoId}`, {
+      method: "put",
+      body: formData, // Utiliza el FormData para enviar archivos
+    })
+      .then((response) => {
+        console.log("Success:", response);
+
+        if(response.status === 200) window.location.href = "/admin";
+        // Puedes redirigir o realizar otras acciones después de completar la carga
+      })
+      .catch((error) => console.error("Error:", error));
+  });
+
+  const cargarImagen = (event) => {
+    const nodo = $(event.target.id).parentNode;
+
+    const input = event.target;
+    const imagePreview = nodo.querySelector("img");
+
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        imagePreview.src = e.target.result;
+      };
+
+      nodo.style.border = "none";
+      imagePreview.style.display = "block";
+
+      reader.readAsDataURL(input.files[0]);
+    } else {
+      imagePreview.src = ""; // Si no se selecciona ningún archivo, borra la imagen
+    }
+  };
+</script>
