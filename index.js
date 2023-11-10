@@ -8,15 +8,12 @@ const joiner = (pathx) => {
     return path.join(process.cwd(), `./src${pathx}`)
 }
 
-
-console.log(path.join(process.cwd(), './src/public'));
-console.log("process.cwd()",process.cwd());
 // Middleware para parsear el body de las solicitudes
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Servir archivos estáticos desde el directorio "public"
-app.use(express.static(path.join(process.cwd(), './src/public')));
+app.use(express.static(joiner('/public')));
 
 
 // habilitando el motor de plantillas ejs 
@@ -37,7 +34,6 @@ sequelize.sync({ logging: false }).then(() => {
 import home from './src/routes/home.js';
 import admin from './src/routes/admin.js';
 import db from './src/routes/db.js';
-import { log } from 'node:console';
 
 app.use('/', home)
 app.use('/admin', admin)
@@ -46,4 +42,3 @@ app.use('/db', db)
 app.listen(3000, () => {
     console.log('Example app listening on port 3000!');
 });
-
